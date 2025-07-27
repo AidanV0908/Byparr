@@ -5,6 +5,7 @@ import logging
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
+from seleniumbase.config import settings
 
 from src.consts import LOG_LEVEL, VERSION
 from src.endpoints import router
@@ -19,6 +20,7 @@ app.add_middleware(LogRequest)
 
 app.include_router(router=router)
 
+settings.RAISE_INVALID_PROXY_STRING_EXCEPTION = False
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8191, log_level=LOG_LEVEL)  # noqa: S104
